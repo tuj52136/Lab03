@@ -25,7 +25,7 @@ func printMainMenu(){
     print("6. Quit")
 }
 
-func getBookTitle(){
+func addABook(){
     print("What is the title of the book?")
     print("Java How many pages is it?")
     print("What is the price?")
@@ -33,7 +33,7 @@ func getBookTitle(){
     print("Book is now in stock.")
 }
 
-func sellBook(){
+func sellABook(){
     print("Which book would you like to sell?")
     print("How many copies will be sold?")
     print("Success! You have sold 10 copies(s) of _______.")

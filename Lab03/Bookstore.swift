@@ -11,10 +11,8 @@ import Foundation
 class Bookstore{
     var books = [Book]()
     
-    /** a failable nitializer that creates a new, empty Bookstore object. */
-    public init?() {
-        
-    }
+    /** OMITTED : a failable nitializer that creates a new, empty Bookstore object. */
+
     /** Adds a new Book b to the stock of the Bookstore object. If the book is already in stock, the quantity is incremented */
     public func addNewBook(b:Book) {
        books.append(b)
@@ -38,6 +36,7 @@ class Bookstore{
         if inStock(title: title, quantity: quantity){
             if let book = books.first(where: {$0.getTitle() == title }){
                 book.subtractQuantity(amount: quantity)
+                return true
             }
         }
         return false

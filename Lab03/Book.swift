@@ -8,13 +8,12 @@
 
 import Foundation
 
-class Book : Equatable, Hashable{
+class Book : Equatable{
     
     static func == (lhs: Book, rhs: Book) -> Bool {
         return lhs.title == rhs.title
     }
     
-    func hash(into hasher: inout Hasher) {}
     
     private var title: String
     private var numOfPages : Int
