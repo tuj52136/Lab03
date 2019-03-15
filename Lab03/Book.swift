@@ -22,7 +22,10 @@ class Book : Equatable{
 
      /**a failable Initializer: Takes in the title of the book, the number of pages in the book, the cost of the book and the number of copies (quantity) of books and initializes each of the appropriate properties in the object.*/
     public init?(theTitle: String, pages:Int, cost:Double, num: Int) {
-        self.title = theTitle
+        if theTitle.isEmpty || pages < 0 || cost < 0 || num < 0{
+            return nil
+        }
+        self.title = theTitle.capitalized
         self.numOfPages = pages
         self.price = cost
         self.quantity = num
@@ -42,14 +45,18 @@ class Book : Equatable{
     }
     /** Returns all the information about a Book object as a String. (Add spaces or tabs to make it readable!)*/
     public func toString()-> String {
-        return "The book is \(title), has \(numOfPages) pages, costs \(price) and there are \(quantity) in stock. "
+        return "\(title), has \(numOfPages) pages, costs $\(price) and there are \(quantity) in stock. "
     }
     /** Decrements the number of copies, by the given amount, for the Book object the method is called on.*/
     public func subtractQuantity(amount:Int) {
-        quantity -= amount
+        if amount <= quantity, amount >= 0{
+            quantity -= amount
+        }
     }
     /**Increments the number of copies, with the given amount, for the Book object the method is called on.*/
     public func addQuantity(amount:Int) {
-        quantity += amount
+        if amount >= 0{
+            quantity += amount
+        }
     }
 }

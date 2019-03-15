@@ -1,15 +1,21 @@
-//
-//  Bookstore.swift
-//  Lab03
-//
-//  Created by Leo Vergnetti on 2/28/19.
-//  Copyright © 2019 Leo Vergnetti. All rights reserved.
+// THIS DESIGN IS ACTUALLY AWFUL
+// THE BOOK CLASS IS KEEPING TRACK OF HOW MANY OF ITSELF IT HAS
+// THE BOOKSTORE CLASS CONTAINS CONTRAINTS(MAX NUMBER OF BOOKS?) NOT PRESENT IN DESCRIPTION
+// CREATES A TIGHTLY COUPLED DESIGN (IE WHAT SHOULD HAPPEN IF BOOK QUANTITY GOES TO 0? SHOULD
+// IT BE REMOVED FROM THE STORE? HOW SHOULD THE STORE KNOW TO REMOVE A BOOK IF ITS NOT AWARE OF
+// THE QUANTITY. SHOULD THE ENTRY REMAIN? WHY HAVE AN ADD BOOK OPTION AT ALL?
+// QUANTITY SHOULD BE REMOVED FROM THE BOOK CLASS:
+// A DICTIONARY SHOULD BE USED IN THE BOOKSTORE CLASS, EITHER BY IMPLEMENTING EQUATABLE / HASHABLE,
+// AND USING THE BOOK ITSELF AS THE KEY, WITH AN INTEGER (QUANTITY) AS ITS VALUE, OR
+// SIMPLY USE BOOK.TITLE AS KEY AND MAINTAIN A SEPARATE DICTIONARY WITH BOOK.TITLE AS KEY AND
+// BOOK OBJECT AS VALUE.
 //
 
 import Foundation
 
 class Bookstore{
     var books = [Book]()
+    var grossIncome = 0.0
     
     /** OMITTED : a failable nitializer that creates a new, empty Bookstore object. */
 
@@ -36,6 +42,7 @@ class Bookstore{
         if inStock(title: title, quantity: quantity){
             if let book = books.first(where: {$0.getTitle() == title }){
                 book.subtractQuantity(amount: quantity)
+                grossIncome += Double(quantity) * book.getPrice()
                 return true
             }
         }
@@ -52,7 +59,7 @@ class Bookstore{
     
     /** Returns the total gross income of the Bookstore object.*/
     public func getIncome()->Double{
-        return books.reduce(0){$0 + $1.getPrice()}
+        return grossIncome
     }
     
 }
